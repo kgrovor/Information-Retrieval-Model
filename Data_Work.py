@@ -11,9 +11,9 @@ from nltk.stem import PorterStemmer
 #nltk.download()
 
 
-# In[11]:
+# In[31]:
 
-data = ["The iPhone 8 and 8 Plus, two of the three new iPhones in Apple’s 2017 lineup, went on sale around the world, starting in Australia where hundreds of people have usually gathered outside Apple’s Sydney city store for previous launches. But instead of queues winding down the street there were fewer than 30 people lining up before the store opened on Friday."," At first, East Central University — a public university with 4,000 students in Ada, about 80 miles (130 kilometers) southeast of Oklahoma City — complied with the request from Americans United for Separation of Church and State, removing Bibles and other Christian-themed items from the colonial-style chapel that was donated by a longtime regent in 1957. But before the cross could be taken down, the matter had drawn the attention of religious leaders as well as Oklahoma's Republican attorney general, who is running for re-election next year."]
+data = ["yolo yolo","yolo lol lol"]
 
 
 def basic(data):
@@ -29,7 +29,7 @@ data = basic(data)
 print(data)
 
 
-# In[12]:
+# In[32]:
 
 class defaultlist(list):
 
@@ -42,56 +42,55 @@ class defaultlist(list):
     
 
 
-# In[13]:
+# In[33]:
 
 #data = ["We are implementing tf idf"," the the the the implementing"]
-        
-        
 tdm = {}
-for docid in range(len(data)):
-    for i in data[docid]:
-        
-        if i not in tdm:
-            tdm[i]= defaultlist([0])
-            tdm[i][docid] = 1
-        
-        else:
-                if(docid > len(tdm[i])-1):
-                    tdm[i][docid] = 1
-                else:
-                    tdm[i][docid] = tdm[i][docid] + 1
+def make_tdm(data,tdm): 
+    for docid in range(len(data)):
+        for i in data[docid]:
 
+            if i not in tdm:
+                tdm[i]= defaultlist([0])
+                tdm[i][docid] = 1
+
+            else:
+                    if(docid > len(tdm[i])-1):
+                        tdm[i][docid] = 1
+                    else:
+                        tdm[i][docid] = tdm[i][docid] + 1
+    for ech in tdm:
+        if len(tdm[ech]) < len(data):
+            tdm[ech][len(data)-1]=0
+    return tdm
+tdm = make_tdm(data,tdm)
 print(tdm)
 
 
-# In[16]:
-
-for ech in tdm:
-    if len(tdm[ech]) < len(data):
-        tdm[ech][len(data)-1]=0
-        
-print(tdm)
-
-
-# In[18]:
+# In[35]:
 
 from math import *
-docs_vect = []
-vals = list(tdm.values())
-for docid in range(len(data)):
-    vectmap = {}
-    vectmap.clear()
-    sq = 0
-    for a in vals:
-        sq = sq + (a[docid] * a[docid])
-    sq = sqrt(sq)
-    for word in data[docid]:
-        tf = tdm[word][docid]/sq
-        idf = log(len(data)/np.count_nonzero(tdm[word]),10)
-        tfidf = tf * idf
-        vectmap[word] = tfidf
-    docs_vect.append(vectmap)
-    
+#Optimise idf
+idfs = {}
+def tfidf(tdm):
+    docs_vect = []
+    vals = list(tdm.values())
+    for docid in range(len(data)):
+        vectmap = {}
+        vectmap.clear()
+        sq = 0
+        for a in vals:
+            sq = sq + (a[docid] * a[docid])
+        sq = sqrt(sq)
+        for word in data[docid]:
+            tf = tdm[word][docid]/sq
+            idf = log(len(data)/np.count_nonzero(tdm[word]),10)
+            idfs[word] = idf
+            tfidf = tf * idf
+            vectmap[word] = tfidf
+        docs_vect.append(vectmap)
+    return docs_vect
+docs_vect = tfidf(tdm)
 print(docs_vect)
         
 
