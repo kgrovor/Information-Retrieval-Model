@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[5]:
 
 import nltk
 from nltk import word_tokenize
@@ -11,23 +11,15 @@ from nltk.stem import PorterStemmer
 #nltk.download()
 
 
-# In[ ]:
+# In[31]:
 
-from sklearn.datasets import fetch_20newsgroups
-cats = ['alt.atheism']
-newsgroups_train = fetch_20newsgroups(subset='train', categories=cats)
-
-#print(newsgroups_train.data)
+data = ["Gambhir, who describes herself on Twitter as an Indian diplomat and a Delhiite, is quite familiar with Pakistan, having worked with the Pakistan division in the ministry of external affairs before being posted in New York.","At least six Pakistani villagers were killed and 26 were wounded in an overnight attack by India in the disputed Himalayan region of Kashmir, Pakistan’s military said Friday, adding that hundreds of villagers were forced to move to safer places."]
 
 
-# In[ ]:
-
-#data = ["Gambhir, +-----------------------------------+ who describes herself on Twitter as an Indian diplomat and a Delhiite, is quite familiar with Pakistan, having worked with the Pakistan division in the ministry of external affairs before being posted in New York.","At least six Pakistani villagers were killed and 26 were wounded in an overnight attack by India in the disputed Himalayan region of Kashmir, Pakistan’s military said Friday, adding that hundreds of villagers were forced to move to safer places."]
-data = newsgroups_train.data
 def basic(data):
     proc_data = []
     stop_words = set(stopwords.words('english'))
-    stop_words.update(['.','--','+','>','-+' ,',', '"', "'", '?', '!', ':', ';', '(', ')', '[', ']', '{', '}'])
+    stop_words.update(['.', ',', '"', "'", '?', '!', ':', ';', '(', ')', '[', ']', '{', '}'])
     for doc in data:
         proc_data.append([i.lower() for i in (PorterStemmer().stem(x) for x in word_tokenize(doc)) if i.lower() not in stop_words])
     return proc_data
@@ -37,7 +29,7 @@ data = basic(data)
 print(data)
 
 
-# In[ ]:
+# In[32]:
 
 class defaultlist(list):
 
@@ -50,7 +42,7 @@ class defaultlist(list):
     
 
 
-# In[ ]:
+# In[33]:
 
 #data = ["We are implementing tf idf"," the the the the implementing"]
 tdm = {}
@@ -75,7 +67,7 @@ tdm = make_tdm(data,tdm)
 print(tdm)
 
 
-# In[ ]:
+# In[36]:
 
 from math import *
 #Optimise idf
@@ -101,11 +93,6 @@ def tfidf(tdm):
 docs_vect = tfidf(tdm)
 print(docs_vect)
         
-
-
-# In[ ]:
-
-
 
 
 # In[ ]:
