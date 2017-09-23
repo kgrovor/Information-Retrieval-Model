@@ -14,7 +14,8 @@ from nltk.stem import PorterStemmer
 # In[ ]:
 
 from sklearn.datasets import fetch_20newsgroups
-cats = ['alt.atheism']
+cats = ['alt.atheism','comp.sys.ibm.pc.hardware',
+ 'comp.sys.mac.hardware',]
 newsgroups_train = fetch_20newsgroups(subset='train', categories=cats)
 
 #print(newsgroups_train.data)
