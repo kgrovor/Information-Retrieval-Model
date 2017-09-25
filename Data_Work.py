@@ -18,6 +18,17 @@ cats = ['alt.atheism','comp.sys.ibm.pc.hardware',
  'comp.sys.mac.hardware',]
 newsgroups_train = fetch_20newsgroups(subset='train', categories=cats)
 
+f = open('opinion_lexicon/positive-words.txt', 'r')
+x = f.read().splitlines()
+
+positive_words = [PorterStemmer().stem(i) for i in x]
+positive_words = set(positive_words)
+
+f2 = open('opinion_lexicon/negative-words.txt', 'r')
+x = f2.read().splitlines()
+
+negative_words = [PorterStemmer().stem(i) for i in x]
+negative_words = set(negative_words)
 #print(newsgroups_train.data)
 
 
@@ -35,7 +46,16 @@ def basic(data):
 
     
 data = basic(data)
-print(data)
+#print(data)
+
+sentiment = []
+for i in data:
+    sdata = set(i)
+    if (len(sdata - positive_words) >= len(sdata - negative_words)):
+        sentiment.append(0)
+    else:
+        sentiment.append(1)
+    
 
 
 # In[ ]:
@@ -73,7 +93,7 @@ def make_tdm(data,tdm):
             tdm[ech][len(data)-1]=0
     return tdm
 tdm = make_tdm(data,tdm)
-print(tdm)
+#print(tdm)
 
 
 # In[ ]:
@@ -100,7 +120,7 @@ def tfidf(tdm):
         docs_vect.append(vectmap)
     return docs_vect
 docs_vect = tfidf(tdm)
-print(docs_vect)
+#print(docs_vect)
         
 
 
