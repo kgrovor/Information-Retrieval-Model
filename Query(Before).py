@@ -1,20 +1,19 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[7]:
 
 import Data_Work as dw
 
 
-# In[13]:
+# In[10]:
 
-print(dw.newsgroups_train.target.shape)
-query = ["I need to get my laptop repaired. What do I do?"]
+query = ["yolo lol"]
 proc_query = dw.basic(query)
 print(proc_query)
 
 
-# In[14]:
+# In[11]:
 
 qtdm = {}
 for i in proc_query[0]:
@@ -23,11 +22,14 @@ for i in proc_query[0]:
         qtdm[i] = 1
 
     else:
+        if(docid > len(qtdm[i])-1):
+            qtdm[i] = 1
+        else:
             qtdm[i] = qtdm[i] + 1
 print(qtdm)
 
 
-# In[15]:
+# In[12]:
 
 from math import *
 import numpy as np
@@ -52,49 +54,9 @@ def tfidf(tdm,data):
             vectmap[word] = tfidf
         docs_vect.append(vectmap)
     return docs_vect
+
 query_vect = tfidf(qtdm,proc_query)
 print(query_vect)
-qlist = np.array(list(query_vect[0].values()))
-query_norm = sqrt(np.sum(qlist**2))
-
-
-# In[16]:
-
-import heapq
-scores = []
-for ech in dw.docs_vect:
-    med_sum = 0
-    ech_val = np.array(list(ech.values()))
-    doc_norm = sqrt(np.sum(ech_val**2))
-    b = doc_norm * query_norm
-    for i in query_vect[0]:
-        if i in ech:
-            a = ech[i]*query_vect[0][i]
-        else:
-            a = 0
-        med_sum = med_sum + a
-    scores.append(med_sum/b)
-
-scores = np.array(scores)
-#print(scores)
-ans = heapq.nlargest(10, range(len(scores)), scores.take)
-print(ans)
-
-
-# In[17]:
-
-for i in ans:
-    print(dw.newsgroups_train.data[i])
-
-
-# In[10]:
-
-print(scores[1488]," " ,scores[475] )
-
-
-# In[18]:
-
-print(print(dw.newsgroups_train.data[1583]))
 
 
 # In[ ]:
