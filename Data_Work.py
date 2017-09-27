@@ -14,8 +14,7 @@ from nltk.stem import PorterStemmer
 # In[ ]:
 
 from sklearn.datasets import fetch_20newsgroups
-cats = ['alt.atheism','comp.sys.ibm.pc.hardware',
- 'comp.sys.mac.hardware',]
+cats = ['alt.atheism']
 newsgroups_train = fetch_20newsgroups(subset='train', categories=cats)
 
 f = open('opinion_lexicon/positive-words.txt', 'r')
