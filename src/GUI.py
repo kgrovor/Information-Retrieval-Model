@@ -1,16 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Sep 28 16:24:01 2017
 
-@author: kshitij
-"""
 import Query
 from tkinter import *
 import time
 
 
 def printResult(searchResult,start):
+    """Clears Previous results and Displays new results"""
     j = 0
     global resultsFrame
     global text
@@ -24,7 +21,7 @@ def printResult(searchResult,start):
         else:
             sent = "(Positive Sentiment)"
         abbr = 'Result: ' + str(j) + ' ' + sent + '\n\n'
-        text.insert(END,str(abbr + dw.newsgroups_train.data[i] + '\n--------------------------------------------------------------------------------------------------------------------\n'))
+        text.insert(END,str(abbr + Query.dw.newsgroups_train.data[i] + '\n--------------------------------------------------------------------------------------------------------------------\n'))
     text.pack(side=TOP) 
     
 def printascResult(searchResult,start):
@@ -44,7 +41,7 @@ def printascResult(searchResult,start):
         else:
             sent = "(Positive Sentiment)"
         abbr = 'Result: ' + str(j) + ' ' + sent + '\n\n'
-        text.insert(END,str(abbr + dw.newsgroups_train.data[i] + '\n--------------------------------------------------------------------------------------------------------------------\n'))
+        text.insert(END,str(abbr + Query.dw.newsgroups_train.data[i] + '\n--------------------------------------------------------------------------------------------------------------------\n'))
     text.pack(side=TOP) 
     
 def printdescResult(searchResult,start):
@@ -63,10 +60,11 @@ def printdescResult(searchResult,start):
         else:
             sent = "(Positive Sentiment)"
         abbr = 'Result: ' + str(j) + ' ' + sent + '\n\n'
-        text.insert(END,str(abbr + dw.newsgroups_train.data[i] + '\n--------------------------------------------------------------------------------------------------------------------\n'))
+        text.insert(END,str(abbr + Query.dw.newsgroups_train.data[i] + '\n--------------------------------------------------------------------------------------------------------------------\n'))
     text.pack(side=TOP) 
 
 def fns():
+    """Calls print on GUI"""
     a = e1.get()
    
     start = time.time()
@@ -82,7 +80,9 @@ def fns2():
     start = time.time()
     printdescResult(Query.newquery([a]),start)
     
-
+#==============================================================================
+# Builds the on screen GUI
+#==============================================================================
 
 root = Tk()
 

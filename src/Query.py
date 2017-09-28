@@ -1,22 +1,19 @@
 
 # coding: utf-8
 
-# In[2]:
 
 import Data_Work as dw
 from math import *
 
-# In[13]:
-
 print(dw.newsgroups_train.target.shape)
 
 def newquery(query):
+    """Returns top 10 matching document indexes in a list to the query."""
     proc_query = dw.basic(query)
     print(proc_query)
-    
-    
-    # In[14]:
-    
+    if(len(proc_query[0])==0):
+        return [0,1,2,3,4,5,6,7,8,9]
+
     qtdm = {}
     for i in proc_query[0]:
         if i not in qtdm:
@@ -27,10 +24,7 @@ def newquery(query):
                 qtdm[i] = qtdm[i] + 1
     #print(qtdm)
     
-    
-    # In[15]:
-    
-    
+
     import numpy as np
     def tfidf(tdm,data):
         docs_vect = []
@@ -61,9 +55,9 @@ def newquery(query):
     qlist = np.array(list(query_vect[0].values()))
     query_norm = sqrt(np.sum(qlist**2))
     
-    
-    # In[16]:
-    
+#==============================================================================
+#     Stores all Cosine Similarities in scores. Uses Heap to avoid sorting overhead to get top 10
+#==============================================================================
     import heapq
     scores = []
  
@@ -88,17 +82,8 @@ def newquery(query):
     
     print(ans,"|")
     
-    
-    # In[17]:
     return ans
-    #for i in ans:
-     #   print(dw.newsgroups_train.data[i])
-    
-    
-#for i in range(4):
-#    a = input("Enter Query:")
-#    newquery([a])
-
+  
 
 
 
