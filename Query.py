@@ -25,7 +25,7 @@ def newquery(query):
     
         else:
                 qtdm[i] = qtdm[i] + 1
-    print(qtdm)
+    #print(qtdm)
     
     
     # In[15]:
@@ -42,6 +42,9 @@ def newquery(query):
             for a in vals:
                 sq = sq + pow(a,2)
             sq = sqrt(sq)
+            if(sq==0):
+                return [0,1,2,3,4,5,6,7,8,9]
+            
             for word in data[docid]:
                 tf = tdm[word]/sq
                 if word in dw.idfs:
@@ -63,11 +66,14 @@ def newquery(query):
     
     import heapq
     scores = []
+ 
     for ech in dw.docs_vect:
         med_sum = 0
         ech_val = np.array(list(ech.values()))
         doc_norm = sqrt(np.sum(ech_val**2))
         b = doc_norm * query_norm
+        if(b==0):
+            b=1
         for i in query_vect[0]:
             if i in ech:
                 a = ech[i]*query_vect[0][i]
@@ -77,20 +83,21 @@ def newquery(query):
         scores.append(med_sum/b)
     
     scores = np.array(scores)
-    #print(scores)
-    ans = heapq.nlargest(10, range(len(scores)), scores.take)
-    print(ans)
+    #print(scores)                      
+    ans = heapq.nlargest(10, range(len(scores)), scores.take)#https://stackoverflow.com/questions/6910641/how-to-get-indices-of-n-maximum-values-in-a-numpy-array
+    
+    print(ans,"|")
     
     
     # In[17]:
+    return ans
+    #for i in ans:
+     #   print(dw.newsgroups_train.data[i])
     
-    for i in ans:
-        print(dw.newsgroups_train.data[i])
     
-    
-for i in range(4):
-    a = input("Enter Query:")
-    newquery([a])
+#for i in range(4):
+#    a = input("Enter Query:")
+#    newquery([a])
 
 
 

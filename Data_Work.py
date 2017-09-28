@@ -38,7 +38,7 @@ data = newsgroups_train.data
 def basic(data):
     proc_data = []
     stop_words = set(stopwords.words('english'))
-    stop_words.update(['.','--','+','>','-+' ,',', '"', "'", '?', '!', ':', ';', '(', ')', '[', ']', '{', '}'])
+    stop_words.update(['.','--','+','>','-+' ,',', '"', "'", '?', '!', ':', ';', '(', ')', '[', ']', '{', '}','>'])
     for doc in data:
         proc_data.append([i.lower() for i in (PorterStemmer().stem(x) for x in word_tokenize(doc)) if i.lower() not in stop_words])
     return proc_data
@@ -50,10 +50,13 @@ data = basic(data)
 sentiment = []
 for i in data:
     sdata = set(i)
-    if (len(sdata - positive_words) >= len(sdata - negative_words)):
-        sentiment.append(0)
-    else:
-        sentiment.append(1)
+    sentiment.append(len(sdata - positive_words) - len(sdata - negative_words))  #Higher it is, the more negative the sentiment
+#==============================================================================
+#     if (len(sdata - positive_words) >= len(sdata - negative_words)):
+#         sentiment.append(0)
+#     else:
+#         sentiment.append(1)
+#==============================================================================
     
 
 
