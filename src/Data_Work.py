@@ -8,11 +8,12 @@ from nltk import word_tokenize
 from nltk.corpus import stopwords
 import numpy as np
 from nltk.stem import PorterStemmer
+#import time
 #nltk.download()
-
+#start = time.time()
 from sklearn.datasets import fetch_20newsgroups
-#cats = ['sci.crypt','sci.electronics','sci.med','sci.space','alt.atheism','talk.politics.guns','rec.autos','comp.windows.x','misc.forsale']
-cats = ['sci.crypt']
+cats = ['sci.crypt','sci.electronics','sci.med','sci.space','alt.atheism','talk.politics.guns','rec.autos','comp.windows.x','misc.forsale']
+#cats = ['sci.crypt']
 newsgroups_train = fetch_20newsgroups(subset='train', categories=cats)
 
 f = open('../opinion_lexicon/positive-words.txt', 'r')
@@ -109,16 +110,8 @@ def tfidf(tdm):
         docs_vect.append(vectmap)
     return docs_vect
 docs_vect = tfidf(tdm)
-#print(docs_vect)
-        
 
-
-# In[ ]:
-
-
-
-
-# In[ ]:
+#print(start-time.time())       
 
 
 
