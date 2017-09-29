@@ -1,10 +1,10 @@
 # Information-Retrieval-Model
 
 Team:
-Kshitij Grovor 2015A7PS070H
-Bhavathi Reddy	2015A7PS020H
-Meghana Kumar 2014B5A7932H
-Problem Statement : To implement a retrieval system based on vector space model on the given dataset
+Kshitij Grovor 2015A7PS070H  
+Bhavathi Reddy	2015A7PS020H  
+Meghana Kumar 2014B5A7932H  
+Problem Statement : To implement a retrieval system based on vector space model on the given dataset  
 Language : Python v3.6.1
 
 Working :
